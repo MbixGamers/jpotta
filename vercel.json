@@ -1,10 +1,1 @@
-{
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @workspace/jpotta run build",
-  "outputDirectory": "artifacts/jpotta/dist",
-  "framework": null,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
+{"version": 2, "builds": [{"src": "artifacts/api-server/api/index.ts", "use": "@vercel/node"}], "routes": [{"src": "/api/(.*)", "dest": "artifacts/api-server/api/index.ts"}, {"src": "/(.*)", "dest": "artifacts/jpotta/dist/index.html"}], "installCommand": "pnpm install", "buildCommand": "pnpm --filter @workspace/jpotta --filter @workspace/api-server run build", "outputDirectory": "artifacts/jpotta/dist"}
