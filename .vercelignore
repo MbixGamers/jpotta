@@ -1,0 +1,5 @@
+# Exclude local artifact projects from production deployment bundle.
+artifacts/api-server/**
+artifacts/mockup-sandbox/**
+attached_assets/**
+zipFile.zip
