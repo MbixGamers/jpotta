@@ -3,8 +3,9 @@
   "buildCommand": "pnpm --filter @workspace/jpotta run build",
   "outputDirectory": "artifacts/jpotta/dist",
   "framework": null,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/api/admin/(login|logout|me)", "dest": "/api/admin" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
