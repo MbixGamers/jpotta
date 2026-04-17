@@ -177,9 +177,29 @@ function NewsForm({ editingId, onDone, toast }: { editingId: number | null; onDo
   const [imageUrl, setImageUrl] = useState(existing?.imageUrl ?? "");
   const [publishedAt, setPublishedAt] = useState(existing ? existing.publishedAt.slice(0, 10) : new Date().toISOString().slice(0, 10));
   const [saving, setSaving] = useState(false);
+  const defaultPublishedAt = new Date().toISOString().slice(0, 10);
+
+  useEffect(() => {
+    if (editingId && existing) {
+      setTitle(existing.title ?? "");
+      setSummary(existing.summary ?? "");
+      setContent(existing.content ?? "");
+      setImageUrl(existing.imageUrl ?? "");
+      setPublishedAt(existing.publishedAt ? existing.publishedAt.slice(0, 10) : defaultPublishedAt);
+    } else if (!editingId) {
+      setTitle("");
+      setSummary("");
+      setContent("");
+      setImageUrl("");
+      setPublishedAt(defaultPublishedAt);
+    }
+  }, [editingId, existing, defaultPublishedAt]);
 
   const save = async () => {
-    if (!title.trim()) return toast({ title: "Title is required", variant: "destructive" });
+    if (!title.trim()) {
+      toast({ title: "Title is required", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const data = { title, summary, content, imageUrl: imageUrl || null, publishedAt: new Date(publishedAt).toISOString() };
@@ -269,8 +289,39 @@ function PlayerForm({ editingId, onDone, toast }: { editingId: number | null; on
   const [bhRubber, setBhRubber] = useState(existing?.bhRubber ?? "");
   const [saving, setSaving] = useState(false);
 
+  useEffect(() => {
+    if (editingId && existing) {
+      setName(existing.name ?? "");
+      setDistrict(existing.district ?? "");
+      setState(existing.state ?? "");
+      setDistrictRank(existing.districtRank ?? "");
+      setStateRank(existing.stateRank ?? "");
+      setNationalRank(existing.nationalRank ?? "");
+      setInternationalRank(existing.internationalRank ?? "");
+      setPhotoUrl(existing.photoUrl ?? "");
+      setBlade(existing.blade ?? "");
+      setFhRubber(existing.fhRubber ?? "");
+      setBhRubber(existing.bhRubber ?? "");
+    } else if (!editingId) {
+      setName("");
+      setDistrict("");
+      setState("");
+      setDistrictRank("");
+      setStateRank("");
+      setNationalRank("");
+      setInternationalRank("");
+      setPhotoUrl("");
+      setBlade("");
+      setFhRubber("");
+      setBhRubber("");
+    }
+  }, [editingId, existing]);
+
   const save = async () => {
-    if (!name.trim()) return toast({ title: "Name is required", variant: "destructive" });
+    if (!name.trim()) {
+      toast({ title: "Name is required", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const data = {
@@ -376,11 +427,35 @@ function AchievementForm({ editingId, onDone, toast }: { editingId: number | nul
   const [mainImageUrl, setMainImageUrl] = useState(existing?.mainImageUrl ?? "");
   const [taggedPlayerIds, setTaggedPlayerIds] = useState<number[]>(existing?.taggedPlayerIds ?? []);
   const [saving, setSaving] = useState(false);
+  const defaultYear = new Date().getFullYear().toString();
+
+  useEffect(() => {
+    if (editingId && existing) {
+      setTitle(existing.title ?? "");
+      setShortDesc(existing.shortDescription ?? "");
+      setLongDesc(existing.longDescription ?? "");
+      setYear(existing.year?.toString() ?? defaultYear);
+      setCategory(existing.category ?? "");
+      setMainImageUrl(existing.mainImageUrl ?? "");
+      setTaggedPlayerIds(existing.taggedPlayerIds ?? []);
+    } else if (!editingId) {
+      setTitle("");
+      setShortDesc("");
+      setLongDesc("");
+      setYear(defaultYear);
+      setCategory("");
+      setMainImageUrl("");
+      setTaggedPlayerIds([]);
+    }
+  }, [editingId, existing, defaultYear]);
 
   const togglePlayer = (id: number) => setTaggedPlayerIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   const save = async () => {
-    if (!title.trim()) return toast({ title: "Title is required", variant: "destructive" });
+    if (!title.trim()) {
+      toast({ title: "Title is required", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const data = { title, shortDescription: shortDesc, longDescription: longDesc, year: parseInt(year), category: category || null, mainImageUrl: mainImageUrl || null, additionalImages: existing?.additionalImages ?? [], taggedPlayerIds };
@@ -467,8 +542,27 @@ function CommitteeForm({ editingId, onDone, toast }: { editingId: number | null;
   const [order, setOrder] = useState(existing?.order?.toString() ?? "10");
   const [saving, setSaving] = useState(false);
 
+  useEffect(() => {
+    if (editingId && existing) {
+      setName(existing.name ?? "");
+      setRole(existing.role ?? "");
+      setBio(existing.bio ?? "");
+      setPhotoUrl(existing.photoUrl ?? "");
+      setOrder(existing.order?.toString() ?? "10");
+    } else if (!editingId) {
+      setName("");
+      setRole("");
+      setBio("");
+      setPhotoUrl("");
+      setOrder("10");
+    }
+  }, [editingId, existing]);
+
   const save = async () => {
-    if (!name.trim() || !role.trim()) return toast({ title: "Name and Role are required", variant: "destructive" });
+    if (!name.trim() || !role.trim()) {
+      toast({ title: "Name and Role are required", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const data = { name, role, bio: bio || null, photoUrl: photoUrl || null, order: parseInt(order) || 10 };
@@ -545,8 +639,27 @@ function ReviewForm({ editingId, onDone, toast }: { editingId: number | null; on
   const [photoUrl, setPhotoUrl] = useState(existing?.photoUrl ?? "");
   const [saving, setSaving] = useState(false);
 
+  useEffect(() => {
+    if (editingId && existing) {
+      setAuthorName(existing.authorName ?? "");
+      setAuthorTitle(existing.authorTitle ?? "");
+      setContent(existing.content ?? "");
+      setRating(existing.rating ?? 5);
+      setPhotoUrl(existing.photoUrl ?? "");
+    } else if (!editingId) {
+      setAuthorName("");
+      setAuthorTitle("");
+      setContent("");
+      setRating(5);
+      setPhotoUrl("");
+    }
+  }, [editingId, existing]);
+
   const save = async () => {
-    if (!authorName.trim() || !content.trim()) return toast({ title: "Author and content are required", variant: "destructive" });
+    if (!authorName.trim() || !content.trim()) {
+      toast({ title: "Author and content are required", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const data = { authorName, authorTitle: authorTitle || null, content, rating, photoUrl: photoUrl || null };
