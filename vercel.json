@@ -4,6 +4,7 @@
   "outputDirectory": "artifacts/jpotta/dist",
   "framework": null,
   "routes": [
+    { "src": "/api/admin/(login|logout|me)", "dest": "/api/admin" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
