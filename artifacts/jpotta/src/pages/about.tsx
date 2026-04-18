@@ -243,7 +243,6 @@ function CommitteeSection({ isDark }: { isDark: boolean }) {
                   <button onClick={() => setSelectedId(null)} className={`ml-auto mb-6 w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${isDark ? "bg-zinc-800 border-white/10 hover:bg-primary text-white" : "bg-slate-100 border-slate-200 hover:bg-red-600 hover:text-white text-slate-600"}`}>
                     <X className="w-4 h-4" />
                   </button>
-                  <div className={`text-xs font-bold tracking-[0.2em] uppercase mb-1 ${isDark ? "text-primary" : "text-red-600"}`}>Director</div>
                   <h3 className={`text-2xl font-black uppercase mb-1 leading-tight ${isDark ? "text-white" : "text-slate-900"}`}>{active.name}</h3>
                   <p className={`text-sm font-bold uppercase tracking-wide mb-4 ${isDark ? "text-primary/80" : "text-red-500"}`}>{active.role}</p>
                   <div className={`h-px w-12 mb-4 ${isDark ? "bg-primary/40" : "bg-red-200"}`} />
@@ -314,9 +313,11 @@ function PlayersSection({ isDark }: { isDark: boolean }) {
                   : <div className={`w-full h-full flex items-center justify-center text-4xl font-black ${isDark ? "text-zinc-800" : "text-slate-300"}`}>{player.name.charAt(0)}</div>
                 }
                 <div className={`absolute inset-0 bg-gradient-to-t to-transparent opacity-70 ${isDark ? "from-black" : "from-slate-900/50"}`} />
-                {player.district && (
+                {(player.district || player.state) && (
                   <div className="absolute bottom-2 left-2">
-                    <p className="text-primary text-[10px] font-black uppercase tracking-widest">{player.district}</p>
+                    <p className="text-primary text-[10px] font-black uppercase tracking-widest">
+                      {[player.district, player.state].filter(Boolean).join(" · ")}
+                    </p>
                   </div>
                 )}
               </div>
