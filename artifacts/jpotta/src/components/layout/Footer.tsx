@@ -47,7 +47,7 @@ export default function Footer() {
               <li className="text-gray-400 text-sm">JPOTTA, Marol (Main Centre)</li>
               <li className="text-gray-400 text-sm">Kalpataru Society, Ghatkopar West (Only for society members)</li>
               <li className="text-gray-400 text-sm">Bombay Scottish School, Powai (Only for BSS students)</li>
-              <li className="text-gray-400 text-sm">Jolly Gymkhana, Ghatkopar West (Specific Hours of Coaching only)</li>
+              <li className="text-gray-400 text-sm">Raheja Vistas, Chandivali (Only for Residents)</li>
               <li className="text-gray-400 text-sm">SEBI Bhavan, BKC (Only for SEBI Employees)</li>
             </ul>
           </div>
